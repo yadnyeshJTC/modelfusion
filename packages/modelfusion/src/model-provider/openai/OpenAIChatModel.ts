@@ -127,8 +127,7 @@ export class OpenAIChatModel
   implements
   TextStreamingBaseModel<OpenAIChatPrompt, OpenAIChatSettings>,
   ToolCallGenerationModel<OpenAIChatPrompt, OpenAIChatSettings>,
-  ToolCallsGenerationModel<OpenAIChatPrompt, OpenAIChatSettings>
-{
+  ToolCallsGenerationModel<OpenAIChatPrompt, OpenAIChatSettings> {
   constructor(settings: OpenAIChatSettings) {
     super(settings);
 
