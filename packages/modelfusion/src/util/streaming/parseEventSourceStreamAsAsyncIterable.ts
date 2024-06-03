@@ -16,15 +16,15 @@ export async function parseEventSourceStreamAsAsyncIterable<T>({
   // process the stream asynchonously (no 'await' on purpose):
   parseEventSourceStream({ stream })
     .then(async (events) => {
-      try {
-        for await (const event of events) {
-          const data = event.data;
+      for await (const event of events) {
+        const data = event.data;
 
-          if (data === "[DONE]") {
-            queue.close();
-            return;
-          }
+        if (data === "[DONE]") {
+          queue.close();
+          return;
+        }
 
+        try {
           const parseResult = safeParseJSON({
             text: data,
             schema,
@@ -47,11 +47,11 @@ export async function parseEventSourceStreamAsAsyncIterable<T>({
             type: "delta",
             deltaValue: completionChunk,
           });
+        } catch (error) {
+          queue.push({ type: "error", error });
+          queue.close();
+          return;
         }
-      } catch (error) {
-        queue.push({ type: "error", error });
-        queue.close();
-        return;
       }
     })
     .catch((error) => {
