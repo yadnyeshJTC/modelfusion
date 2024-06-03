@@ -5,7 +5,7 @@
     "build:dtsMap": "turbo build:dtsMap",
     "clean": "rimraf .turbo node_modules/.cache/turbo && pnpm --filter \"./packages/**\" clean && pnpm --filter \"./examples/**\" clean",
     "lint": "turbo lint",
-    "c": "husky install",
+    "setup": "husky install",
     "test": "turbo test",
     "format": "prettier --write \"**/*.{ts,json}\" --config .prettierrc.json"
   },
